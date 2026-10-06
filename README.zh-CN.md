@@ -12,6 +12,7 @@
 
 - [分类说明](cloud-and-ai-infra/README.zh-CN.md)
 - [K8s-containerd 环境下为 RDMA 修改 Pod 内存锁定上限](cloud-and-ai-infra/rdma-memlock-limit/zh-CN.md) / [English](cloud-and-ai-infra/rdma-memlock-limit/en-US.md)
+- [从 RDMA 资源消失到 CSI 挂载失败：平台组件的污点与容忍](cloud-and-ai-infra/platform-components-taints-tolerations/zh-CN.md) / [English](cloud-and-ai-infra/platform-components-taints-tolerations/en-US.md)
 
 ## 工程实践
 

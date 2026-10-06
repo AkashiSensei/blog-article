@@ -7,3 +7,4 @@ Most articles here may be based on Crater, a Kubernetes-oriented AI development 
 ## Articles
 
 - [Raising the Pod Memory Lock Limit for RDMA in a K8s-containerd Environment](rdma-memlock-limit/en-US.md) / [中文](rdma-memlock-limit/zh-CN.md)
+- [From Missing RDMA Resources to Failed CSI Mounts: Taints and Tolerations for Platform Components](platform-components-taints-tolerations/en-US.md) / [中文](platform-components-taints-tolerations/zh-CN.md)

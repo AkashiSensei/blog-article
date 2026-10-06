@@ -12,6 +12,7 @@ Personal blog article archive.
 
 - [Category introduction](cloud-and-ai-infra/README.en-US.md)
 - [Raising the Pod Memory Lock Limit for RDMA in a K8s-containerd Environment](cloud-and-ai-infra/rdma-memlock-limit/en-US.md) / [中文](cloud-and-ai-infra/rdma-memlock-limit/zh-CN.md)
+- [From Missing RDMA Resources to Failed CSI Mounts: Taints and Tolerations for Platform Components](cloud-and-ai-infra/platform-components-taints-tolerations/en-US.md) / [中文](cloud-and-ai-infra/platform-components-taints-tolerations/zh-CN.md)
 
 ## Engineering Practices
 
