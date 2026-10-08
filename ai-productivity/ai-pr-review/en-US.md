@@ -1,7 +1,5 @@
 AI PR Review: Should You Use It, and How?
 
-![cover](img/cover.png)
-
 AI review is no longer a new idea. Vendors now provide review features for GitHub Pull Requests, IDE-integrated review tools, and community skills built specifically for review.
 
 This article focuses on GitHub PR review, mainly GitHub Copilot code review and Cursor Bugbot. Compared with other forms of review, PR review has one major advantage: for teams and open-source projects, AI review records can stay naturally inside the PR, making it easy for human teammates to inspect the code changes, discuss them, and review the AI's comments themselves.

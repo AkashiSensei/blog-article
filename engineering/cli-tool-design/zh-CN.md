@@ -1,7 +1,5 @@
 Web 平台 CLI 工具开发的诸多问题、思考和决策
 
-![cover](img/cover.png)
-
 最近在给我们的 [Crater 平台](https://github.com/raids-lab/crater) 开发 [CLI 工具](https://github.com/raids-lab/crater/tree/main/cli)，虽然现在可以很快借助 vibe coding 产出一个能用的工具，但作为学生，我更希望把它做得好一些：至少学到一些东西、积累一些经验、沉淀一些思考，而不仅仅是给需要它的人交出一个产品。
 
 当然，我们也不可能一开始就考虑得面面俱到、把架构设计得多么优雅，但至少可以把想到的问题想清楚，尽量做好一些，同时避免过度工程化。

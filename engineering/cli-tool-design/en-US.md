@@ -1,7 +1,5 @@
 Many Problems, Thoughts, and Decisions in Building a CLI Tool for a Web Platform
 
-![cover](img/cover.png)
-
 Recently I have been developing a [CLI tool](https://github.com/raids-lab/crater/tree/main/cli) for our [Crater platform](https://github.com/raids-lab/crater). In the current vibe-coding era, it is easy to use AI to quickly produce a usable tool. But as a student, I still want to make it better: at least learn something, accumulate experience, and distill some thoughts, instead of merely handing over a product to the people who need it.
 
 Of course, we cannot consider everything from the beginning or design an architecture that is elegant in every way. But at least we can think through the problems we have noticed, do our best on them, and avoid overengineering.

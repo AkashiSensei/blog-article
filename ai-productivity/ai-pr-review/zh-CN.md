@@ -1,7 +1,5 @@
 AI 来 review PR：要不要？怎么做？
 
-![cover](img/cover.png)
-
 AI review 不是什么很新鲜的东西了，各个厂商不仅提供了对 GitHub 上 Pull Request 的 review，还提供了内嵌在 IDE 中的各种 review 功能，现在社区也有用来 review 的 skills 等等。
 
 这里我们主要介绍的是对 GitHub PR 的 review，包括 Copilot code review 和 Cursor Bugbot。相比于其它的 review 形式，review PR 最大的优势是，对于团队或开源项目，AI review 的记录能够优雅地留存在 PR 中，方便团队的人类成员进一步检查、讨论代码变更以及 review 意见本身。
