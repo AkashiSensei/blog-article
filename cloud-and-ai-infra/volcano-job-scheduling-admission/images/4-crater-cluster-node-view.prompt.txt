@@ -1,0 +1,68 @@
+Create a NEW companion figure using the attached architecture figure ONLY as a STYLE REFERENCE. Match its visual language exactly: academic systems-paper diagram, white background, crisp thin navy outlines, pale blue and teal component fills, small purple callback accent, sans-serif Chinese typography, squared rectangles, no shadows, no 3D, no icons, no cartoons. This new figure is a PHYSICAL NODE / DEPLOYMENT VIEW, not the previous five-column pipeline. High resolution landscape, around 2400x1500 or comparable. Prioritize technical correctness and readable sparse layout over detail. Exact Chinese text.
+
+Scope: illustrate ONE Crater VCJob whose two member Pods end up on TWO worker nodes. Kubernetes control plane components, Crater frontend/backend and Volcano components are placed on THREE control-plane nodes. The repository selects control-plane nodes for Crater and Volcano, but which exact node runs which Pod is illustrative. Do not imply deployment placement is universal. No research-scheduler lane needed in this figure.
+
+Layout:
+TOP HALF has THREE large side-by-side node boundaries, same size, aligned horizontally, ample gutter space. Titles "控制平面节点 A", "控制平面节点 B", "控制平面节点 C".
+Inside EACH node near its top, a small pale-gray two-line common-components strip:
+"kube-apiserver · etcd"
+"kube-controller-manager · kube-scheduler"
+These indicate HA replicas; do not draw individual control-plane RPC connections. In node A ONLY, below this strip two component cards "Crater 前端 Pod" and "Crater 后端 Pod"; small under backend text "接收请求，创建 VCJob".
+In node B, below common-components strip, two component cards "Volcano ControllerManager Pod" and "Volcano Admission Pod". Under the controller card, concise note "先建 PodGroup；接纳后创建成员 Pod". Under admission card, small note "API 准入校验".
+In node C, below common-components strip, one larger card "Volcano Scheduler Pod", with concise two-line note "读取调度要求与资源状态" / "写回接纳状态，绑定成员 Pod".
+At the bottom INSIDE EACH control-plane node, a quiet small label "kubelet · 容器运行时" to show platform components are Pods that also need a node runtime.
+
+Outside left of node A, small "用户" label with arrow directly to Crater 后端 Pod, labelled "提交请求". Label near this path "访问入口省略" to avoid claiming ingress location.
+A single purple dashed bidirectional connector from Volcano Scheduler Pod to Crater 后端 Pod, routed above node boxes with adequate whitespace, labelled "接纳回调（后文介绍）". It must not connect frontend, admission or kube-apiserver. Keep callback as simple hook.
+
+MIDDLE is ONE HORIZONTAL LOGICAL API COMMUNICATION BAND across all nodes, NOT a fourth machine or a new server:
+Title "Kubernetes API 通道（对应上方 kube-apiserver 副本）"
+Within it, ONE short line of document-shaped object labels:
+"VCJob"  "PodGroup"  "Pod"  "Node"
+Below labels, small text "对象读写与状态通知；不是组件间直接转发作业"
+Connections between component cards and this API channel, routed downward in each node column:
+- Crater BACKEND -> API band, black downward arrow labelled "创建 VCJob".
+- Volcano ControllerManager <-> API band, teal dashed bidirectional arrow labelled "监听对象 / 创建与更新". It must originate at ControllerManager card, NOT admission or node boundary. Reposition Admission to the side if needed.
+- Volcano Admission <-> API band, gray dashed small connector labelled "准入请求 / 响应". Keep this visually secondary; routed separately within node B gutter.
+- Volcano Scheduler <-> API band, teal dashed bidirectional arrow labelled "读取对象 / 写回状态与绑定".
+Do NOT draw direct controller -> scheduler or scheduler -> worker-node arrows. API channel is the hub for object-mediated communication.
+
+BOTTOM HALF has TWO large worker-node boundaries, side by side with a clear gap, centered across width:
+"计算节点 1 · GPU" and "计算节点 2 · GPU".
+Within EACH:
+Top component row "kubelet" -> "容器运行时", with arrow label "调用".
+Under runtime, downward arrow labelled "启动容器", ending at a small "容器" box nested INSIDE an enclosing Pod rectangle.
+Left worker Pod rectangle label "成员 Pod A · 作业 X".
+Right worker Pod rectangle label "成员 Pod B · 作业 X".
+API band -> each kubelet with teal dashed arrow labelled "观察绑定到本节点的 Pod".
+Each worker kubelet -> API band can be represented by same bidirectional line with secondary concise label "上报状态", so no extra parallel arrows.
+A subtle brace or single caption BELOW both worker-node boxes reads "作业 X 的成员分布在不同节点，关联同一个 PodGroup".
+Do not enclose both node boxes in a PodGroup boundary; PodGroup is not a physical enclosure of nodes.
+No claim that all Pods start simultaneously.
+
+BOTTOM FOOTER, readable small text, EXACT:
+"按仓库的控制平面节点选择配置绘制；组件在各节点间的分布仅作示意，副本与选主细节省略。"
+"控制器、调度器与 kubelet 通过 API 对象异步协作；接纳通过不等于成员 Pod 已启动。"
+Small compact legend: solid black arrow "请求 / 创建 / 本机调用"; teal dashed double arrow "对象监听与状态写回"; purple dashed double arrow "HTTP 回调".
+No giant decorative title. Use node boundaries as the strongest grouping, component cards as second level, API objects as folded-corner cards in the central logical channel. Keep arrow paths simple, orthogonal, spacious, and avoid crossings or arrows through unrelated cards. This must look like another figure in the SAME research paper as the reference, but from a distinct node-centric viewpoint.
+
+--- Targeted correction ---
+
+Correct only the purple callback routing and user-request path in this node-view architecture diagram. Preserve every node boundary, component box, text inside boxes, API channel, worker node, and non-purple data-flow arrow unless specifically addressed below. Maintain the same restrained publication style.
+
+PURPLE CALLBACK CORRECTION:
+Remove ALL purple dashed lines in the entire main figure, including the line across the Volcano ControllerManager / Admission boxes and the old lines passing through the common kube-apiserver strips. Keep the purple legend symbol.
+Draw exactly ONE purple dashed bidirectional orthogonal path, connecting ONLY Crater 后端 Pod and Volcano Scheduler Pod. Use this geometry approximately in the supplied 1586x994 image:
+- first endpoint at RIGHT EDGE of Crater 后端 Pod box (x594, y240);
+- go right through empty space to x630 (the gutter between node A and node B);
+- go vertically UP in that gutter to y44;
+- go horizontally RIGHT at y44 to x1552, near the right interior margin of node C;
+- go vertically DOWN along x1552 (to the right of every component card) to y252;
+- go horizontally LEFT to the RIGHT EDGE of Volcano Scheduler Pod at x1485,y252.
+Arrowheads at BOTH endpoints. No branch, no third endpoint. Never enter or cross kube-apiserver / controller-manager / admission / frontend boxes. The overhead line label stays "接纳回调（后文介绍）". This is a direct HTTP request/response between the two component Pods only.
+
+USER REQUEST CORRECTION:
+The job creation request should enter Crater 后端 Pod, not be shown as passing through the frontend Pod.
+Remove the two black user->frontend->backend arrows.
+From the user's RIGHT EDGE (x90,y260), route a single black arrow DOWN to y330, RIGHT to x420, then UP to the BOTTOM EDGE of Crater 后端 Pod at (420,309). Avoid the backend->API vertical arrow at x498. Label the horizontal part "提交作业请求". Keep "访问入口省略" nearby but not overlapping. Frontend remains visible as a deployed component without a workflow arrow in this figure. Remove the old "提交请求" label above the old user arrow.
+Do not change anything else. Ensure paths are clear, no lines through text.

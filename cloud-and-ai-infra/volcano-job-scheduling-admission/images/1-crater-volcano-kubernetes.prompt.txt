@@ -1,0 +1,33 @@
+Redesign Image 1 (Crater/Volcano/Kubernetes overview) to look like a companion figure in the EXACT SAME academic systems paper as Image 2. Image 1 is the CONTENT / EDIT TARGET. Image 2 is STYLE REFERENCE ONLY: do not import its node diagram or complexity.
+
+Keep a SIMPLE THREE-LAYER OVERVIEW. White canvas, fine dark navy outlines, navy-black sans-serif typography, pale blue / pale teal / very pale warm-neutral grouping fills drawn from reference 2, aligned rectangular component cards, very modest corner radius, wide whitespace. NO oversized branding, illustrations, logos, shadows, gradients, 3D, decorative titles. All text crisp and Chinese correct. Landscape around 1600x1000 with substantial readable labels. Less dense than reference 2; three clear equal-width bands.
+
+TOP LAYER:
+Left header "Crater", subtitle "AI 集群管理平台"
+Across the layer three small white rectangular cards, same style as reference 2's components:
+"用户与项目"
+"作业提交与管理"
+"平台资源策略"
+
+MIDDLE LAYER:
+Left header "Volcano", subtitle "作业管理与调度"
+Two component cards:
+"作业控制器" / "管理作业与成员 Pod"
+"调度器" / "接纳、资源分配与节点选择"
+
+BOTTOM LAYER:
+Left header "Kubernetes", subtitle "集群基础能力"
+Three component cards:
+"API Server" / "对象读写与监听"
+"原生控制器与默认调度器" / "管理与调度其他负载"
+"kubelet 与容器运行时" / "在节点上运行容器"
+
+Only THREE straightforward dependency connectors:
+1. A short BLACK solid downward arrow from bottom of Crater band to top of Volcano band. Two-line label: "通过 Kubernetes API" / "提交作业与调度要求". This is a logical dependency, NOT direct synchronous RPC into Volcano.
+2. A short BLACK solid downward arrow from bottom of Volcano band to top of Kubernetes band. Two-line label: "通过 Kubernetes API" / "读取状态、管理对象与绑定 Pod".
+3. One TEAL dashed bypass arrow from the RIGHT EDGE of Crater band, down through dedicated exterior right margin and into the RIGHT EDGE of the Kubernetes band. Arrow must NOT touch any Volcano box, and must NOT end at kubelet. Label horizontally in whitespace midway: "直接使用" / "Kubernetes API".
+Use roomy right margin for bypass labels, avoid overlap.
+
+Bottom of figure, a thin navy divider and ONE small footer:
+"按职责分层；对象读写通过 Kubernetes API 完成，并非请求逐层转发。"
+No extra legend required, no numbered steps, no callback hook, no PodGroup, no worker nodes or API bus. Preserve the overview's simplicity while aligning line weight, typography, pale fills and card style with reference 2. Product names bold but not disproportionately huge. The image should look like the first overview figure in the same paper, with reference 2 as the later detailed figure.

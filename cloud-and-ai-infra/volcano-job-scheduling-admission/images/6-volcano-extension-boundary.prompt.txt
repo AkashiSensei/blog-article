@@ -1,0 +1,48 @@
+生成记录：初始生成提示词与最终局部修订。旧版图片已清理；下列修订描述为制作记录。
+
+初始生成提示词
+
+Use case: infographic-diagram. Create a publication-quality Chinese technical figure for a Volcano scheduling article. Match an existing series of academic architecture figures: pure white background, very pale blue and mint component fills, pale ivory auxiliary regions, dark navy thin rectangular outlines and arrows, cyan dashed observation arrows, purple dashed external callbacks only. Flat vector-like raster design, no cartoon, no icons, no gradients, no shadows, no 3D, no decoration. Clean Chinese sans-serif typography, dark navy text, bold component names, restrained hierarchy, generous whitespace, precise readable labels. Landscape high resolution, approximately 1600x1100. Text must be correct Chinese and exact English identifiers. Minimize crossing arrows, never add invented connections.
+Title: “Volcano 的扩展边界：进程内插件与外部服务”
+A spacious horizontal architecture diagram, not a dense flowchart.
+Left roughly 68% width: large pale blue container with dark navy outline titled “Volcano Scheduler 进程”.
+Inside at top a small vertical sequence of three broad boxes:
+“Action” with subtitle “组织候选遍历与调度步骤”
+downward solid navy arrow labeled “调用”
+“Session 扩展点” with subtitle “保存本轮上下文与已注册的判断函数”
+downward solid navy branching arrows to TWO plugin boxes placed side by side in same row:
+left “进程内 Plugin” subtitle “例如 gang、predicates、自定义插件”
+right “extender Plugin” subtitle “将已支持的回调转换为 HTTP 请求”
+Branch labels “调用已注册函数”. Both plugins are INSIDE scheduler process, same level. No connection between plugin boxes.
+Near Session, small understated note “按扩展点规则组合返回结果，Action 继续执行”.
+Use a small unobtrusive internal return arrow from plugin row back toward Session only if it remains very clear, label “返回判断”; avoid crossings and do not imply sequential dependency between plugins.
+
+Right 27% width: separated from the scheduler box by a clear whitespace gap (process/network boundary), pale purple outlined container titled “外部服务”.
+Inside one main box “平台规则与数据” and subtitle “例如 Crater”.
+Connect ONLY internal extender Plugin to external service with two distinct purple dashed horizontal arrows:
+outbound arrow to right labeled “HTTP POST / JSON” and second short text “按回调发送对象信息”.
+inbound arrow left labeled “判断结果”.
+Beside these arrows a small two-line note listing representative callback data precisely:
+“接纳：JobInfo”
+“节点过滤：TaskInfo + NodeInfo”
+No full Session drawn inside external service.
+Under external service, concise note “不共享 Session 内存”.
+
+At bottom INSIDE scheduler container, a pale ivory horizontal box “Volcano 继续完成调度决策与绑定处理”, connected from Session by a single neat internal solid arrow labeled “继续调度”. Prefer route along inner left boundary, avoiding other components; do not connect external service directly to this bottom box or to Kubernetes.
+A small footnote across figure beneath divider:
+“Extender 是进程内插件的一种；外部服务只参与已开放的回调，不直接完成 Pod 绑定。”
+Second shorter footnote:
+“示意接纳与节点过滤两个接口；具体请求内容取决于回调协议。”
+
+Critical: Action invokes functions registered on Session by enabled plugins; extender is itself in-process, not external scheduler. HTTP request and response are different directional arrows, response must point back to extender. Session is not API resource nor a shared remote memory object. No API Server or kubelet needed in this figure. No arrows suggesting all plugins must run one after another or all decisions must go to external service. Maintain same white/navy/pastel style as the companion sequence diagram.
+
+
+最终局部修订
+
+Mode: built-in image_gen edit
+
+Edit the attached Chinese scientific architecture figure. Preserve existing layout, resolution, white background, navy outlines, pale blue/mint/ivory/purple colors, fonts, all components and HTTP arrows. Make EXACTLY TWO localized corrections:
+1. In the left lower green plugin box replace its bold heading “进程内 Plugin” with “其他进程内 Plugin”. Keep the subtitle “例如 gang、predicates、自定义插件” unchanged. This makes clear that the extender Plugin to the right is also an in-process plugin.
+2. Add a thin dark navy RETURN arrow from the left “其他进程内 Plugin” box back INTO the “Session 扩展点” box, label it “返回判断”. It must point FROM the plugin TO Session. Keep the existing downward calling arrows and the existing extender → Session return arrow. Both plugins should visibly return a judgment to Session.
+For the new return arrow, use the whitespace just above the LEFT portion of the ordinary plugin box: rise vertically from its top edge near its left quarter, then turn RIGHT into the lower part of Session's left edge. This path can run to the left of Session, but well to the right of the existing far-left “继续调度” line. Avoid crossing the central branched call arrows, labels, or other lines. Put the new “返回判断” label in the whitespace next to the new upward segment. Maintain clear separation of call and return paths.
+Do NOT connect the two plugin boxes to each other. Do not add any other arrows or change other text. HTTP POST goes out to external service; judgment response returns to extender; these remain unchanged. All other content and footnotes unchanged.

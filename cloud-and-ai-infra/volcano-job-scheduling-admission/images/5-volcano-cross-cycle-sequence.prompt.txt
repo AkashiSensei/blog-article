@@ -1,0 +1,44 @@
+生成记录：初始生成提示词与最终局部修订。旧版图片已清理；下列修订描述为制作记录。
+
+初始生成提示词
+
+Use case: infographic-diagram. Create a publication-quality Chinese technical figure for a Volcano scheduling article. Match an existing series of academic architecture figures: pure white background, very pale blue and mint component fills, pale ivory auxiliary regions, dark navy thin rectangular outlines and arrows, cyan dashed observation arrows, purple dashed external callbacks only. Flat vector-like raster design, no cartoon, no icons, no gradients, no shadows, no 3D, no decoration. Clean Chinese sans-serif typography, dark navy text, bold component names, restrained hierarchy, generous whitespace, precise readable labels. Landscape high resolution, approximately 1600x1100. Text must be correct Chinese and exact English identifiers. Minimize crossing arrows, never add invented connections.
+Title: “从接纳到运行：一个 VCJob 跨越多轮调度”
+Design a precise sequence diagram, four vertical lifelines from left to right:
+“Volcano Scheduler”, “Kubernetes API Server”, “Volcano Job Controller”, “节点 kubelet”.
+A small leftmost vertical arrow says “时间向下”.
+Top subtitle: “常规 VCJob 路径；起点：PodGroup 已创建，Pod 尚未创建”.
+Only scheduler lane contains Session boxes. Other actors continue independently. No global transaction frame.
+
+Flow, top to bottom, clearly separated with space:
+1. In scheduler lane a pale blue box “Session n” contains two short stacked lines “快照包含 PodGroup” and “enqueue：通过接纳判断”.
+At bottom of this box draw navy arrow scheduler → API labeled “收尾：写回 PodGroup Inqueue”. Session n ends here.
+2. Cyan dashed arrow API → controller labeled “Watch：接纳状态”.
+Then navy arrow controller → API labeled “创建 Pod（关联 PodGroup）”.
+Then cyan dashed arrow API → scheduler labeled “Watch：Pod 更新进入缓存”.
+3. In scheduler lane another pale mint box “后续 Session m” containing “从缓存取新快照”, “allocate：逐个 Pod 试分配”, “成组检查通过 → Commit”.
+Show small three Pod rectangles INSIDE this box if space allows, without additional connections. Scope clearly entire selected job. No Pod goes directly to node from this box.
+At Commit a short arrow downward within scheduler lane to a separate small box “后台绑定队列” (visually distinct from Session). Adjacent small note “异步推进，无需等待 Session 关闭”.
+Then navy horizontal arrow from background binding box scheduler → API labeled “逐个 Pod 提交绑定”.
+Then cyan dashed arrow API → kubelet labeled “Watch：已绑定 Pod”.
+At kubelet lower lane a pale ivory box “调用容器运行时” with downward arrow to small group of 3 outlined rectangles labeled “Pod”; group caption “在对应节点分别启动”.
+Finally cyan dashed arrow kubelet → API labeled “上报 Pod 状态”.
+Then a later cyan dashed arrow API → scheduler labeled “Watch：状态更新进入缓存”.
+End scheduler label “后续轮次继续判断”.
+
+Bottom footnote two short lines:
+“m > n，不保证紧接下一轮完成；图示为资源与检查均满足时的一条成功路径。”
+“Gang 按成组条件组织提交；绑定逐 Pod 完成，不保证同时启动。多个 Pod 可分布在不同节点。”
+
+Critical semantics: API arrows Watch represent observation, NOT API dispatching executable commands. No controller→kubelet direct arrow. Session box covers only local computation, not controller creation, node start, or all background binding. Session m may close while binding runs; don't imply close required for binding. PodGroup is not a running container. Do not depict atomic multi-Pod binding. Use only the content specified; no extra states, source code or detailed errors. Make the diagram comprehensible with legible spacing, accuracy over embellishment.
+
+
+最终局部修订
+
+Mode: built-in image_gen edit
+
+Edit the attached Chinese scientific sequence diagram. Preserve the entire composition, resolution, white background, navy outlines, pale blue/mint/ivory colors, typography, all existing objects, all other texts and arrows. Make EXACTLY TWO localized corrections:
+1. Replace the top-right lane heading “节点 kubelet” with “各目标节点的 kubelet”. Fit it legibly inside the same rectangle, using two lines if needed. This lane summarizes kubelets on multiple target nodes, not one kubelet hosting every Pod.
+2. Near the bottom, the horizontal arrow labeled “上报 Pod 状态” travels LEFT from the kubelet lifeline to the Kubernetes API Server lifeline. Change ONLY THIS ARROW from cyan dashed to DARK NAVY SOLID, including a navy arrowhead pointing LEFT at the API Server lifeline. Keep its existing position, endpoints and text. It is an API status write, not a Watch event.
+All other cyan dashed Watch arrows must stay exactly as they are, including the lower API Server → scheduler arrow “Watch：状态更新进入缓存”. Do not recolor or merge those arrows.
+Retain the footnotes, asynchronous binding explanation, both Session boxes and their contents unchanged. No new content. Clean academic figure, no decoration.

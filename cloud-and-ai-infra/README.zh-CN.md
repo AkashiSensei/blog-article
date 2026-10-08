@@ -8,3 +8,4 @@
 
 - [K8s-containerd 环境下为 RDMA 修改 Pod 内存锁定上限](rdma-memlock-limit/zh-CN.md) / [English](rdma-memlock-limit/en-US.md)
 - [从 RDMA 资源消失到 CSI 挂载失败：平台组件的污点与容忍](platform-components-taints-tolerations/zh-CN.md) / [English](platform-components-taints-tolerations/en-US.md)
+- [Volcano 如何接纳与调度 AI 作业](volcano-job-scheduling-admission/zh-CN.md) / [English](volcano-job-scheduling-admission/en-US.md)

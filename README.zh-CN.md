@@ -1,6 +1,10 @@
 # blob-article
 
+[English](README.md) | **简体中文**
+
 个人博客文稿的存档。
+
+中文博客发布在[知乎](https://www.zhihu.com/people/heal-me-please/posts)（**可能**需要登录）。英文版本由 AI 翻译，仅供参考，尚未发布。
 
 ## AI 提效手记
 
@@ -13,6 +17,7 @@
 - [分类说明](cloud-and-ai-infra/README.zh-CN.md)
 - [K8s-containerd 环境下为 RDMA 修改 Pod 内存锁定上限](cloud-and-ai-infra/rdma-memlock-limit/zh-CN.md) / [English](cloud-and-ai-infra/rdma-memlock-limit/en-US.md)
 - [从 RDMA 资源消失到 CSI 挂载失败：平台组件的污点与容忍](cloud-and-ai-infra/platform-components-taints-tolerations/zh-CN.md) / [English](cloud-and-ai-infra/platform-components-taints-tolerations/en-US.md)
+- [Volcano 如何接纳与调度 AI 作业](cloud-and-ai-infra/volcano-job-scheduling-admission/zh-CN.md) / [English](cloud-and-ai-infra/volcano-job-scheduling-admission/en-US.md)
 
 ## 工程实践
 

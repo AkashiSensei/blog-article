@@ -1,0 +1,53 @@
+Use case: precise-object-edit / scientific architecture diagram.
+Edit target: the supplied existing Crater scheduling architecture diagram. Redraw the SAME figure with the changes below, preserving its visual language: white background, restrained pastel swimlanes, thin navy outlines and arrows, folded-corner API object boxes, plain rectangular component boxes, turquoise dashed shared-information lines, purple dashed Crater callback. Professional top-conference systems-paper figure, flat and crisp, no cartoon, no icons or decorative graphics. All labels in clear accurate Simplified Chinese with English API names. High-resolution landscape, enough height for four rows. Prioritize correct, simple connections over detail.
+
+Purpose: show typical combinations AND extensibility, not a fixed mapping between job types and schedulers. Retain Volcano as prominent top row. Exactly FOUR horizontal lanes and FIVE column headings:
+提交声明 | 控制器 | 生成的对象 | 调度器 | 节点运行
+
+LAYOUT order (chosen to keep both default-scheduler routes adjacent):
+ROW 1 pale blue, left label "Volcano 作业":
+- API box "VCJob", small text "tasks · minAvailable · queue".
+- component "Volcano\nJob Controller".
+- TWO separate API boxes: top "PodGroup", subtext "成组要求 · 队列归属"; bottom "Pod", subtext "由 Task 模板创建" and "schedulerName: volcano".
+- Controller arrow to PodGroup labelled "先创建"; controller arrow to Pod labelled "接纳后创建"; small controller note "观察 PodGroup 接纳状态".
+- PodGroup dashed navy arrow to "Volcano\nScheduler" labelled "调度要求"; Pod solid navy arrow to same scheduler labelled "待调度 Pod".
+- scheduler footer "独立缓存与资源记账".
+- Above Volcano scheduler put small purple outlined "Crater" / "平台策略" box with a bidirectional purple dashed connection labelled "扩展回调（后文介绍）". No callback line to any other scheduler.
+
+ROW 2 pale cool grey-blue, left label "原生作业":
+- "原生 Job", small "batch/v1 · Pod 模板"
+- "Kubernetes\nJob Controller"
+- "Pod", small "schedulerName: default-scheduler"
+- Solid left-to-right arrows connecting the three.
+ROW 3 pale warm yellow, left label "平台服务":
+- "Deployment", small "Crater 前后端等平台组件"
+- controller-column box with the vertical chain "Deployment Controller" → folded-corner "ReplicaSet" → "ReplicaSet Controller".
+- "Pod", small "schedulerName: default-scheduler"
+- Solid left-to-right arrows connecting.
+ROWS 2 AND 3 MUST CONVERGE on ONE SINGLE shared box in the scheduler column centered between these rows:
+"kube-scheduler", small "default-scheduler", footer "独立缓存与资源记账".
+There must be exactly ONE kube-scheduler box in the entire image. Both native Job Pod and Deployment Pod feed this same box. Keep connectors simple and visibly separate from controller arrows.
+
+ROW 4 pale mint, left label "自定义扩展":
+- API box "自定义作业资源", smaller "如 AIJob（示意）" and "Pod 模板与扩展字段".
+- component "对应的自定义控制器".
+- API box "Pod", small "schedulerName: custom-scheduler".
+- component "自定义调度器", small "custom-scheduler", footer "独立缓存与资源记账".
+- solid left-to-right arrows. No PodGroup in this row. No DeepShare branding or claim of actual deployment.
+- This row illustrates an allowed extension, not a universal mandatory path.
+
+RIGHTMOST COLUMN: ONE shared enclosing region spanning all four lanes, titled "共享集群节点（示意）". All THREE scheduler boxes each connect by one solid arrow to the boundary of this shared region, label "经 API Server 绑定" (may share a single common caption to reduce repetition). Do NOT draw exclusive scheduler-to-specific-node paths.
+Inside that region draw TWO node boxes stacked: "节点 A · GPU" and "节点 B · CPU". Each has a simple internal flow "kubelet" → "容器运行时" → "Pod / 容器"; add one small shared sentence "kubelet 观察已绑定 Pod，启动容器". No node has an assigned job category. A small bottom note says "不同作业可按资源与约束落到不同节点". Binding endpoints should be the enclosing region boundary, not container-runtime components.
+
+BOTTOM shared source: keep large wide "Kubernetes API Server" rectangle below lanes, with folded-corner object boxes:
+"Node：allocatable、标签与污点"
+"Pod：requests、nodeName、状态"
+Heading "共享节点与 Pod 信息".
+A turquoise dashed trunk labelled "List / Watch" fans to exactly the THREE scheduler components: Volcano Scheduler, shared kube-scheduler, custom scheduler. Arrowheads point toward schedulers. Keep turquoise trunk between generated-object column and scheduler column, no accidental solid links between schedulers.
+Small sentence inside bottom box: "共享对象状态；各调度器的临时预留不自动共享。"
+
+FOOTNOTES legible and concise, mandatory:
+"各行展示典型组合；Pod 通过 spec.schedulerName 选择调度器，其他组合需满足相应接入要求。"
+"对象读写与绑定经 Kubernetes API Server；扩展回调为独立 HTTP 交互。自定义扩展与节点放置仅作示意。"
+Small legend like original if room: folded object "API 对象"; filled component "运行组件"; solid navy arrow "对象关系 / 绑定"; turquoise dashed "共享信息读取"; purple dashed "扩展回调".
+No extra cross-product arrows; footnote suffices to indicate other combinations. Do not imply controllers communicate directly over RPC to schedulers: footnote clarifies API-mediated objects. Preserve understated academic style and spacious alignment. Do not leave original "研究作业 → 原生 Job → 研究用调度器" route. Accurate spelling and legibility are paramount.
