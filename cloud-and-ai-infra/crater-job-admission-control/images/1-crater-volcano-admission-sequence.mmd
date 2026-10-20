@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant V as Volcano 调度器（含 Extender）
+    participant C as Crater 后端（含 Informer）
+    participant K as Kubernetes API Server
+
+    Note over C,K: Informer 通过 List / Watch 维护对象的本地副本
+    V->>C: enqueue 中询问作业 A 能否接纳
+    C->>C: 基于接纳快照与临时预留检查平台规则
+    C->>C: 检查通过，为 A 建立临时预留
+    C-->>V: Abstain，不否决本次接纳
+    V->>V: 综合插件结果，更新 Session 内的 PodGroup 状态
+    Note over V,C: 继续检查本轮其他候选，Crater 的检查会计入 A 的预留
+
+    V->>C: Session 收尾，调用 onSessionClose
+    C->>C: 使旧快照失效，保留临时预留
+    C-->>V: 返回
+    V->>K: 写回 PodGroup 接纳状态
+    K-->>V: 写回完成
+
+    Note over V,K: 对象缓存同步与后续接纳独立推进，没有固定先后顺序
+    par 路径一：Watch 同步对象状态
+        K--)C: Watch 传递对象变化
+        C->>C: 更新 Informer 对象缓存，接纳快照不随之更新
+    and 路径二：后续调度轮次继续询问
+        V->>C: 询问下一个待接纳作业
+        C->>C: 读取 Informer 对象缓存与数据库配置，重建接纳快照
+        C->>C: 根据新快照核对 A 的临时预留
+        alt 新快照已计入 A 的占用
+            C->>C: 移除 A 的预留，由快照统计接替
+        else 尚未确认 A 已获接纳<br/>且预留未过期
+            C->>C: 继续保留 A 的预留
+        end
+        C-->>V: 基于新快照与剩余预留，返回本次判断
+    end

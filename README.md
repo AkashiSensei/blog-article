@@ -23,6 +23,7 @@ The Chinese posts are also published on [Zhihu](https://www.zhihu.com/people/hea
 - [Raising the Pod Memory Lock Limit for RDMA in a K8s-containerd Environment](cloud-and-ai-infra/rdma-memlock-limit/en-US.md) / [中文](cloud-and-ai-infra/rdma-memlock-limit/zh-CN.md)
 - [From Missing RDMA Resources to Failed CSI Mounts: Taints and Tolerations for Platform Components](cloud-and-ai-infra/platform-components-taints-tolerations/en-US.md) / [中文](cloud-and-ai-infra/platform-components-taints-tolerations/zh-CN.md)
 - [How Volcano Admits and Schedules AI Jobs](cloud-and-ai-infra/volcano-job-scheduling-admission/en-US.md) / [中文](cloud-and-ai-infra/volcano-job-scheduling-admission/zh-CN.md)
+- [AI Job Admission and Scheduling with Volcano](cloud-and-ai-infra/crater-job-admission-control/en-US.md) / [中文](cloud-and-ai-infra/crater-job-admission-control/zh-CN.md)
 
 ## Engineering Practices
 

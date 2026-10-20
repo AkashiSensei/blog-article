@@ -23,6 +23,7 @@
 - [K8s-containerd 环境下为 RDMA 修改 Pod 内存锁定上限](cloud-and-ai-infra/rdma-memlock-limit/zh-CN.md) / [English](cloud-and-ai-infra/rdma-memlock-limit/en-US.md)
 - [从 RDMA 资源消失到 CSI 挂载失败：平台组件的污点与容忍](cloud-and-ai-infra/platform-components-taints-tolerations/zh-CN.md) / [English](cloud-and-ai-infra/platform-components-taints-tolerations/en-US.md)
 - [Volcano 如何接纳与调度 AI 作业](cloud-and-ai-infra/volcano-job-scheduling-admission/zh-CN.md) / [English](cloud-and-ai-infra/volcano-job-scheduling-admission/en-US.md)
+- [基于 Volcano 的 AI 作业接纳与调度](cloud-and-ai-infra/crater-job-admission-control/zh-CN.md) / [English](cloud-and-ai-infra/crater-job-admission-control/en-US.md)
 
 ## 工程实践
 

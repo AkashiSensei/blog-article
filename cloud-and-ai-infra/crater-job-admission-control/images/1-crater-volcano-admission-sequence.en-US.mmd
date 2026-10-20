@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant V as Volcano Scheduler<br/>(Extender)
+    participant C as Crater Backend<br/>(Informers)
+    participant K as Kubernetes API Server
+
+    Note over C,K: Informers maintain local object copies<br/>through List / Watch
+    V->>C: Ask whether job A can be admitted during enqueue
+    C->>C: Check platform rules using the<br/>admission snapshot and reservations
+    C->>C: Checks pass, create a reservation for A
+    C-->>V: Abstain: do not veto admission
+    V->>V: Combine plugin results, update<br/>PodGroup state inside the Session
+    Note over V,C: Continue with other candidates this cycle,<br/>Crater's checks include A's reservation
+
+    V->>C: Call onSessionClose during Session cleanup
+    C->>C: Invalidate the snapshot, keep reservations
+    C-->>V: Return
+    V->>K: Write back PodGroup admission status
+    K-->>V: Write completed
+
+    Note over V,K: Object cache synchronization and later admission checks<br/>advance independently, with no fixed ordering
+    par Path 1: Watch synchronizes object state
+        K--)C: Watch delivers object changes
+        C->>C: Update the Informer object cache,<br/>the admission snapshot stays unchanged
+    and Path 2: A later scheduling cycle sends an inquiry
+        V->>C: Ask about the next admission candidate
+        C->>C: Read the Informer cache and database settings,<br/>rebuild the admission snapshot
+        C->>C: Reconcile A's reservation against the new snapshot
+        alt The snapshot now counts A's requests
+            C->>C: Remove A's reservation,<br/>snapshot accounting takes over
+        else A's admission is unconfirmed<br/>and its reservation is unexpired
+            C->>C: Keep A's reservation
+        end
+        C-->>V: Return a judgment using the new snapshot<br/>and remaining reservations
+    end
